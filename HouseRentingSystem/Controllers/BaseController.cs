@@ -6,12 +6,6 @@ namespace HouseRentingSystem.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        protected string UserId
-        {
-            get
-            {
-                return 
-            }
-        };
+        
     }
 }
