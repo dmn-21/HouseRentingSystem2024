@@ -7,9 +7,9 @@ namespace HouseRentingSystem.Attributes
 {
     public class NotAnAgentAttribute : ActionFilterAttribute
     {
-        public override void OnActionExecuted(ActionExecutedContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
-            base.OnActionExecuted(context);
+            base.OnActionExecuting(context);
 
             IAgentService? agentService = context.HttpContext.RequestServices.GetService<IAgentService>();
 
