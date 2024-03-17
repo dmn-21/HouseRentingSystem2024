@@ -19,8 +19,7 @@ namespace HouseRentingSystem.Infrastructure.Data.Common
 
         public IQueryable<T> All<T>() where T : class
         {
-            return DbSet<T>()
-                .AsQueryable(); 
+            return DbSet<T>();
         }
 
         public IQueryable<T> AllReadOnly<T>() where T : class
