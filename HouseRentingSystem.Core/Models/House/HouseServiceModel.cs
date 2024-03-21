@@ -4,32 +4,28 @@ using static HouseRentingSystem.Infrastructure.Constants.DataConstants;
 
 namespace HouseRentingSystem.Core.Models.House
 {
-    public class HouseFormModel
+    public class HouseServiceModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(HouseTitleMaxLength,
             MinimumLength = HouseTitleMinLength,
             ErrorMessage = LengthMessage)]
-        public string Title { get; set; } = null!;
+        public string Title { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [StringLength(HouseAddressMaxLength,
             MinimumLength = HouseAddressMinLength,
             ErrorMessage = LengthMessage)]
-        public string Address { get; set; } = null!;
-
-        [Required(ErrorMessage = RequiredMessage)]
-        [StringLength(HouseDescriptionMaxLength,
-            MinimumLength = HouseDescriptionMinLength,
-            ErrorMessage = LengthMessage)]
-        public string Description { get; set; } = null!;
+        public string Address { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Image URL")]
-        public string ImageUrl { get; set; } = null!;
+        public string ImageUrl { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
-        [Range(typeof(decimal), 
+        [Range(typeof(decimal),
             HouseRentingPriceMin,
             HouseRentingPriceMax,
             ConvertValueInInvariantCulture = true,
@@ -37,10 +33,7 @@ namespace HouseRentingSystem.Core.Models.House
         [Display(Name = "Price Per Month")]
         public decimal PricePerMonth { get; set; }
 
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-
-        public IEnumerable<HouseCategoryServiceModel> Categories { get; set; } =
-            new List<HouseCategoryServiceModel>();
+        [Display(Name = "Is Rented")]
+        public bool IsRented { get; set; }
     }
 }
