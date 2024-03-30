@@ -1,6 +1,7 @@
 ﻿using HouseRentingSystem.Core.Enumerations;
 using HouseRentingSystem.Core.Models.Home;
 using HouseRentingSystem.Core.Models.House;
+using Microsoft.AspNetCore.Identity;
 
 namespace HouseRentingSystem.Core.Contracts
 {
@@ -29,6 +30,22 @@ namespace HouseRentingSystem.Core.Contracts
 
         Task<bool> ExistsAsync(int id);
 
-        Task<HouseDetailsServiceModel> HouseDetailsByAsync(int id);
+        Task<HouseDetailsServiceModel> HouseDetailsByIdAsync(int id);
+
+        Task EditAsync(int houseId, HouseFormModel model);
+
+        Task<bool> HasAgentWithIdAsync(int houseId, string userId);
+
+        Task<HouseFormModel?> GetHouseFormModelByIdAsync(int id);
+
+        Task DeleteAsync(int houseId);
+
+        Task<bool> IsRentedAsync(int houseId);
+
+        Task<bool> IsRentedByIUserWithIdAsync(int houseId, string userId);
+
+        Task RentAsync(int id, string userId);
+
+        Task LeaveAsync(int houseId, string userId);
     }
 }

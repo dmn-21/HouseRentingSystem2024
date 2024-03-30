@@ -43,6 +43,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 })
                 .AddEntityFrameworkStores<HouseRentingDbContext>();
 
+            services.AddAuthentication()
+                .AddCookie(options =>
+                {
+                    options.LoginPath = PathString.FromUriComponent("Account/Login");
+                });
+
             return services;
         }
     }
