@@ -9,7 +9,11 @@ namespace HouseRentingSystem.Infrastructure.Data.SeedDb
 
         public ApplicationUser GuestUser { get; set; }
 
+        public ApplicationUser AdminUser { get; set; }
+
         public Agent Agent { get; set; }
+
+        public Agent AdminAgent { get; set; }
 
         public Category CottageCategory { get; set; }
 
@@ -35,16 +39,18 @@ namespace HouseRentingSystem.Infrastructure.Data.SeedDb
         {
             var hasher = new PasswordHasher<ApplicationUser>();
 
-            AgentUser = new ApplicationUser() 
-            { 
+            AgentUser = new ApplicationUser()
+            {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                UserName = "agent@mail.com", 
-                NormalizedUserName = "agent@mail.com", 
-                Email = "agent@mail.com", 
-                NormalizedEmail = "agent@mail.com" 
+                UserName = "agent@mail.com",
+                NormalizedUserName = "agent@mail.com",
+                Email = "agent@mail.com",
+                NormalizedEmail = "agent@mail.com",
+                FirstName = "Agent",
+                LastName = "Agentov",
             };
 
-            AgentUser.PasswordHash = 
+            AgentUser.PasswordHash =
                 hasher.HashPassword(AgentUser, "agent123");
 
             GuestUser = new ApplicationUser()
@@ -53,11 +59,28 @@ namespace HouseRentingSystem.Infrastructure.Data.SeedDb
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com"
+                NormalizedEmail = "guest@mail.com",
+                FirstName = "Guest",
+                LastName = "Guestov",
             };
 
-            GuestUser.PasswordHash = 
+            GuestUser.PasswordHash =
                 hasher.HashPassword(AgentUser, "guest123");
+
+            AdminUser = new ApplicationUser()
+            {
+                Id = "999313c4-67e6-492f-ae95-c63caebfc2c7",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "ADMIN@MAIL.COM",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                FirstName = "Great",
+                LastName = "Admin",
+
+            };
+
+            AdminUser.PasswordHash =
+            hasher.HashPassword(AdminUser, "admin123");
         }
 
         private void SeedAgent()
@@ -68,26 +91,33 @@ namespace HouseRentingSystem.Infrastructure.Data.SeedDb
                 PhoneNumber = "+359888888888",
                 UserId = AgentUser.Id
             };
+
+            AdminAgent = new Agent()
+            {
+                Id = 3,
+                PhoneNumber = "+359888888887",
+                UserId = AdminUser.Id
+            };
         }
         private void SeedCategories()
-        { 
-            CottageCategory = new Category() 
-            { 
+        {
+            CottageCategory = new Category()
+            {
                 Id = 1,
-                Name = "Cottage" 
-            }; 
-            
+                Name = "Cottage"
+            };
+
             SingleCategory = new Category()
             {
-                Id = 2, 
-                Name = "Single-Family" 
-            }; 
-            
-            DuplexCategory = new Category() 
-            { 
-                Id = 3, 
-                Name = "Duplex" 
-            }; 
+                Id = 2,
+                Name = "Single-Family"
+            };
+
+            DuplexCategory = new Category()
+            {
+                Id = 3,
+                Name = "Duplex"
+            };
         }
 
         private void SeedHouses()
@@ -117,13 +147,14 @@ namespace HouseRentingSystem.Infrastructure.Data.SeedDb
                 AgentId = Agent.Id
             };
 
-            ThirdHouse = new House() 
+            ThirdHouse = new House()
             {
-                id = 3, 
+                id = 3,
                 Title = "Grand House",
                 Address = "Boyana Neighbourhood, Sofia, Bulgaria",
-                Description = "This luxurious house is everything you will need. It is just excellent.", ImageUrl = "https://i.pinimg.com/originals/a6/f5/85/a6f5850a77633c56e4e4ac4f867e3c00.jpg",
-                PricePerMonth = 2000.00M, 
+                Description = "This luxurious house is everything you will need. It is just excellent.",
+                ImageUrl = "https://i.pinimg.com/originals/a6/f5/85/a6f5850a77633c56e4e4ac4f867e3c00.jpg",
+                PricePerMonth = 2000.00M,
                 CategoryId = SingleCategory.Id,
                 AgentId = Agent.Id
             };
