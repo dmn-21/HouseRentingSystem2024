@@ -1,3 +1,4 @@
+using HouseRentingSystem.Extensions;
 using HouseRentingSystem.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,5 +47,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();
 });
+
+await app.CreateAdminRoleAsync();
 
 await app.RunAsync();
