@@ -6,7 +6,6 @@ using HouseRentingSystem.Core.Models.House;
 using HouseRentingSystem.Infrastructure.Data.Common;
 using HouseRentingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
 
 namespace HouseRentingSystem.Core.Services
 {
@@ -26,7 +25,8 @@ namespace HouseRentingSystem.Core.Services
             int currentPage = 1,
             int housesPerPage = 1)
         {
-            var houseToShow = repository.AllReadOnly<House>();
+            var houseToShow = repository.AllReadOnly<House>()
+                .Where(h => h.IsApproved);
 
             if (category != null)
             {
@@ -91,6 +91,7 @@ namespace HouseRentingSystem.Core.Services
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByAgentIdAsync(int agentId)
         {
             return await repository.AllReadOnly<House>()
+                .Where(h => h.IsApproved)
                 .Where(h => h.AgentId == agentId)
                 .ProjectToHouseServiceModel()
                 .ToListAsync();
@@ -99,6 +100,7 @@ namespace HouseRentingSystem.Core.Services
         public async Task<IEnumerable<HouseServiceModel>> AllHousesByUserId(string userId)
         {
             return await repository.AllReadOnly<House>()
+                .Where(h => h.IsApproved)
                 .Where(h => h.RenterId == userId)
                 .ProjectToHouseServiceModel()
                 .ToListAsync();
@@ -190,6 +192,7 @@ namespace HouseRentingSystem.Core.Services
         public async Task<HouseDetailsServiceModel> HouseDetailsByIdAsync(int id)
         {
             return await repository.AllReadOnly<House>()
+                .Where(h => h.IsApproved)
                 .Where(h => h.id == id)
                 .Select(h => new HouseDetailsServiceModel()
                 {
@@ -241,6 +244,7 @@ namespace HouseRentingSystem.Core.Services
         {
             return await repository
                 .AllReadOnly<House>()
+                .Where(h => h.IsApproved)
                 .OrderByDescending(h => h.id)
                 .Take(3)
                 .Select(h => new HouseIndexServiceModel()
